@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoiceForm</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <div class="container">
+
+    <header>
+      <div class="logo">◉ VoiceForm</div>
+      <p class="tagline">Speak. Fill. Capture. Save.</p>
+    </header>
+
+    <div class="card">
+
+      <!-- STEPS -->
+      <div class="steps">
+        <div class="step active" id="step1">01 · Fill Form</div>
+        <div class="step-line"></div>
+        <div class="step" id="step2">02 · Camera</div>
+        <div class="step-line"></div>
+        <div class="step" id="step3">03 · Done</div>
+      </div>
+
+      <!-- ══ SECTION 1: FORM ══ -->
+      <div id="formSection">
+        <h2 class="sec-title">Your Details</h2>
+        <p class="sec-sub">Click 🎤 next to a field, then speak.</p>
+
+        <div class="field">
+          <label>Full Name</label>
+          <div class="row">
+            <input id="name" type="text" placeholder="John Doe" />
+            <button class="mic" onclick="startVoice('name')">🎤</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Email Address</label>
+          <div class="row">
+            <input id="email" type="text" placeholder="john at gmail dot com" />
+            <button class="mic" onclick="startVoice('email')">🎤</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Phone Number</label>
+          <div class="row">
+            <input id="phone" type="text" placeholder="9876543210" />
+            <button class="mic" onclick="startVoice('phone')">🎤</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Age</label>
+          <div class="row">
+            <input id="age" type="text" placeholder="25" />
+            <button class="mic" onclick="startVoice('age')">🎤</button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Address</label>
+          <div class="row">
+            <input id="address" type="text" placeholder="42 MG Road, Chennai" />
+            <button class="mic" onclick="startVoice('address')">🎤</button>
+          </div>
+        </div>
+
+        <div class="status-box" id="statusBox">
+          <span class="dot" id="statusDot"></span>
+          <span id="statusText">Click 🎤 and speak into any field</span>
+        </div>
+
+        <button class="btn-primary" onclick="goToCamera()">Next → Camera</button>
+      </div>
+
+      <!-- ══ SECTION 2: CAMERA ══ -->
+      <div id="cameraSection" style="display:none">
+        <h2 class="sec-title">Face Capture</h2>
+        <p class="sec-sub">Position your face in the circle, then click Capture.</p>
+
+        <div class="cam-box">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="canvas" style="display:none"></canvas>
+          <div class="cam-ring"></div>
+        </div>
+
+        <div id="previewBox" style="display:none">
+          <img id="previewImg" src="" alt="preview" />
+          <p class="preview-label">✔ Photo ready</p>
+        </div>
+
+        <div class="row-btns">
+          <button class="btn-secondary" onclick="goBack()">← Back</button>
+          <button class="btn-primary" id="captureBtn" onclick="capturePhoto()">📸 Capture</button>
+          <button class="btn-primary" id="retakeBtn" onclick="retakePhoto()" style="display:none">🔄 Retake</button>
+          <button class="btn-green"   id="submitBtn"  onclick="submitForm()"  style="display:none">✅ Submit</button>
+        </div>
+
+        <div class="status-box" id="camStatus" style="display:none">
+          <span class="dot green"></span>
+          <span id="camStatusText"></span>
+        </div>
+      </div>
+
+      <!-- ══ SECTION 3: SUCCESS ══ -->
+      <div id="successSection" style="display:none">
+        <div class="success">
+          <div class="tick">✓</div>
+          <h2>Saved!</h2>
+          <p>Entry stored in <code>registrations.json</code></p>
+          <div class="info-box" id="infoBox"></div>
+          <button class="btn-primary" onclick="resetAll()">+ Register Another</button>
+        </div>
+      </div>
+
+    </div><!-- /card -->
+    <footer>Web Speech API · Flask · JSON Storage</footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
